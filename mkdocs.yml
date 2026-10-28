@@ -1,0 +1,174 @@
+# Рабочее название — поменяйте, когда определитесь (например, sega-how-to).
+site_name: Sega Genesis / Mega Drive — справочник разработчика
+site_description: Справочник по разработке для Sega Genesis / Mega Drive на русском языке
+# Заполнить после создания репозитория на GitHub:
+# site_url: https://<user>.github.io/<repo>/
+# repo_url: https://github.com/<user>/<repo>
+# edit_uri: edit/main/docs/
+
+docs_dir: docs
+strict: true
+
+# Битые якоря (#раздел) — тоже ошибка сборки.
+validation:
+  anchors: warn
+
+exclude_docs: |
+  .obsidian/
+  _templates/
+
+theme:
+  name: material
+  language: ru
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - navigation.path
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Тёмная тема
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Светлая тема
+
+plugins:
+  - search:
+      lang: [ru, en]
+  - tags
+  # Превращает Obsidian-плашки «> [!note]» в admonition — один синтаксис для Obsidian и сайта.
+  - callouts
+
+# Плашка статуса страницы и проверка ID источников (см. docs/about/conventions.md).
+hooks:
+  - hooks/page_meta.py
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      # Якоря из кириллических заголовков: «## Автоинкремент» → #автоинкремент
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+      # Своего лексера для 68000 в Pygments нет: ca65 (6502) ближе всего по синтаксису
+      # (; комментарии, $ hex, # непосредственные значения). В тексте пишем ```m68k.
+      extend_pygments_lang:
+        - name: m68k
+          lang: ca65
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  # Вставка кода из examples/: --8<-- "examples/..." — исходник примера живёт в одном месте.
+  - pymdownx.snippets:
+      base_path: ["."]
+      check_paths: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+extra_css:
+  - assets/css/extra.css
+
+extra_javascript:
+  - assets/js/vdp-command.js
+
+nav:
+  - Главная: index.md
+  - Начало:
+      - getting-started/index.md
+      - Что внутри консоли: getting-started/platform-overview.md
+      - Что понадобится: getting-started/toolchain.md
+  - Железо:
+      - hardware/index.md
+      - Карта памяти: hardware/memory-map.md
+      - Motorola 68000: hardware/m68k.md
+      - Z80: hardware/z80.md
+      - VDP (видео):
+          - hardware/vdp/index.md
+          - Порты и команды: hardware/vdp/ports-and-commands.md
+          - Регистры: hardware/vdp/registers.md
+          - Раскладка VRAM: hardware/vdp/vram-layout.md
+          - Тайлы: hardware/vdp/tiles.md
+          - Палитры и цвет фона: hardware/vdp/palettes.md
+          - Планы A и B: hardware/vdp/planes.md
+          - Window: hardware/vdp/window.md
+          - Спрайты: hardware/vdp/sprites.md
+          - Приоритеты: hardware/vdp/priority.md
+          - Скроллинг: hardware/vdp/scrolling.md
+          - DMA: hardware/vdp/dma.md
+          - Кадр, VBlank и прерывания: hardware/vdp/timing.md
+          - Shadow/Highlight: hardware/vdp/shadow-highlight.md
+      - Звук:
+          - hardware/sound/index.md
+          - YM2612: hardware/sound/ym2612.md
+          - PSG (SN76489): hardware/sound/psg.md
+      - Ввод (контроллеры): hardware/io.md
+      - TMSS: hardware/tmss.md
+  - Руководства:
+      - guides/index.md
+      - Первый ROM на SGDK: guides/first-rom-sgdk.md
+      - Первый ROM на ассемблере: guides/first-rom-asm.md
+  - Рецепты:
+      - cookbook/index.md
+      - Длинный уровень (подгрузка столбцов): cookbook/level-streaming.md
+      - Буфер таблицы спрайтов в RAM: cookbook/sprite-table-buffer.md
+      - Параллакс построчным скроллом: cookbook/parallax.md
+      - Смена палитры посреди кадра (вода): cookbook/hint-palette-split.md
+  - Инструменты:
+      - tools/index.md
+      - SGDK: tools/sgdk.md
+      - Ассемблеры: tools/assemblers.md
+      - Графика и конвертеры: tools/graphics.md
+  - Эмуляторы и отладка:
+      - debugging/index.md
+      - Эмуляторы: debugging/emulators.md
+      - BlastEm + GDB: debugging/blastem-gdb.md
+  - Интерактив:
+      - interactive/index.md
+      - Калькулятор команд VDP: interactive/vdp-command.md
+  - Справка:
+      - Глоссарий: reference/glossary.md
+      - Подводные камни: reference/pitfalls.md
+      - Источники: sources/index.md
+      - Теги: reference/tags.md
+  - О проекте:
+      - about/index.md
+      - Как вести справочник: about/contributing.md
+      - Правила оформления: about/conventions.md
+      - Гайд для агентов: about/agents.md
+      - План развития: about/roadmap.md

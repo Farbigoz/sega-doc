@@ -1,0 +1,94 @@
+/* ---- Интерактивные виджеты (калькулятор команд VDP и др.) ---- */
+
+.vdp-tool {
+  margin: 1em 0;
+  padding: 1em;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.2rem;
+}
+
+.vdp-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6em 1.2em;
+  align-items: center;
+}
+
+.vdp-form select,
+.vdp-form input[type="text"] {
+  font: inherit;
+  font-family: var(--md-code-font-family);
+  padding: 0.2em 0.4em;
+  color: var(--md-default-fg-color);
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+}
+
+.vdp-form input[type="text"] {
+  width: 9em;
+}
+
+.vdp-result {
+  font-family: var(--md-code-font-family);
+  font-size: 1.4em;
+  font-weight: 700;
+  color: var(--md-accent-fg-color);
+}
+
+.vdp-error {
+  color: var(--md-code-hl-number-color, #e53935);
+}
+
+.vdp-bits-wrap {
+  overflow-x: auto;
+}
+
+.vdp-bits {
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  margin: 0.3em 0;
+  min-width: max-content;
+}
+
+.vdp-bits__caption {
+  width: 8.5em;
+  font-size: 0.8em;
+  align-self: center;
+}
+
+.vdp-bit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 2.4em;
+  padding: 0.15em 0;
+  font-family: var(--md-code-font-family);
+  border-radius: 0.15rem;
+  background: var(--md-code-bg-color);
+}
+
+.vdp-bit small {
+  font-size: 0.6em;
+  opacity: 0.75;
+}
+
+.vdp-bit--cd {
+  background: color-mix(in srgb, var(--md-accent-fg-color) 25%, transparent);
+}
+
+.vdp-bit--addr {
+  background: color-mix(in srgb, var(--md-primary-fg-color) 18%, transparent);
+}
+
+.vdp-bit--zero {
+  opacity: 0.55;
+}
+
+.vdp-legend span {
+  display: inline-block;
+  padding: 0 0.5em;
+  margin-right: 0.5em;
+  border-radius: 0.15rem;
+}

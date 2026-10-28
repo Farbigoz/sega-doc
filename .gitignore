@@ -1,0 +1,18 @@
+# Python / MkDocs
+.venv/
+__pycache__/
+site/
+
+# Obsidian: личное состояние окна не коммитим, общие настройки — коммитим
+docs/.obsidian/workspace*.json
+docs/.obsidian/cache
+docs/.obsidian/plugins/
+docs/.obsidian/themes/
+
+# Сборка примеров
+examples/**/out/
+examples/**/build/
+*.bin.tmp
+
+# macOS
+.DS_Store

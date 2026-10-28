@@ -1,0 +1,14 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "docs",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": [
+        "-c",
+        "test -x .venv/bin/mkdocs || (python3 -m venv .venv && .venv/bin/pip install -q -r requirements.txt); NO_MKDOCS_2_WARNING=1 exec .venv/bin/mkdocs serve -a 127.0.0.1:8000"
+      ],
+      "port": 8000
+    }
+  ]
+}
