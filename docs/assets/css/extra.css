@@ -44,34 +44,50 @@
   overflow-x: auto;
 }
 
+/* 16 колонок по ширине контента; подпись слова — строкой над битами. */
 .vdp-bits {
-  display: flex;
-  align-items: stretch;
+  display: grid;
+  grid-template-columns: repeat(16, minmax(1.7em, 1fr));
   gap: 2px;
-  margin: 0.3em 0;
-  min-width: max-content;
+  margin: 0.6em 0;
+  max-width: 36em;
 }
 
 .vdp-bits__caption {
-  width: 8.5em;
+  grid-column: 1 / -1;
   font-size: 0.8em;
-  align-self: center;
 }
 
 .vdp-bit {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 2.4em;
-  padding: 0.15em 0;
+  padding: 0.1em 0;
   font-family: var(--md-code-font-family);
   border-radius: 0.15rem;
   background: var(--md-code-bg-color);
 }
 
+/* Зазор между полубайтами: 4 бита = одна hex-цифра. Первый ребёнок — подпись. */
+.vdp-bit:nth-child(4n + 6) {
+  margin-left: 0.3em;
+}
+
 .vdp-bit small {
-  font-size: 0.6em;
+  font-size: 0.55em;
   opacity: 0.75;
+  white-space: nowrap;
+}
+
+/* Узкий экран: слово в две строки по 8 бит (старший и младший байт). */
+@media screen and (max-width: 37.5em) {
+  .vdp-bits {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .vdp-bit:nth-child(10) {
+    margin-left: 0;
+  }
 }
 
 .vdp-bit--cd {
